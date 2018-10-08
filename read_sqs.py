@@ -1,9 +1,15 @@
 import boto3
 from multiprocessing import Process, Queue, Pool, cpu_count
+
+import configparser
+settings = configparser.ConfigParser()
+settings._interpolation = configparser.ExtendedInterpolation()
+settings.read('config.ini')
+
 # Create SQS client
 sqs = boto3.client('sqs')
 
-queue_url = 'https://sqs.us-east-1.amazonaws.com/603538316346/tutorial'
+queue_url = settings.get('AcccessKeys', 'queue_url')
 
 message_template = """
 Title: {m[MessageAttributes][Title][StringValue]},

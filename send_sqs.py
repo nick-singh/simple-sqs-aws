@@ -1,16 +1,20 @@
 import boto3
 from utils import message_generator
 import os, json, uuid
+import configparser
+settings = configparser.ConfigParser()
+settings._interpolation = configparser.ExtendedInterpolation()
+settings.read('config.ini')
 
 # Create SQS client
 sqs = boto3.client('sqs')
 
-queue_url = 'https://sqs.us-east-1.amazonaws.com/603538316346/tutorial'
+queue_url = settings.get('AcccessKeys', 'queue_url')
 
 
 num_msgs = 100
 
-for i,x in enumerate(range(0,num_msgs)):
+for i,x in enumerate(range(0,num_msgs)[:1]):
     file_name = str(uuid.uuid1())
     data = message_generator.gen_req(file_name, i)
     # Send message to SQS queue
