@@ -9,12 +9,12 @@ settings.read('config.ini')
 # Create SQS client
 sqs = boto3.client('sqs')
 
-queue_url = settings.get('AcccessKeys', 'queue_url')
+queue_url = settings.get('AccessKeys', 'queue_url')
 
 
 num_msgs = 100
 
-for i,x in enumerate(range(0,num_msgs)[:1]):
+for i,x in enumerate(range(0,num_msgs)):
     file_name = str(uuid.uuid1())
     data = message_generator.gen_req(file_name, i)
     # Send message to SQS queue

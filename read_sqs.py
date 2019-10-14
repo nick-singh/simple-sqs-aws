@@ -9,7 +9,7 @@ settings.read('config.ini')
 # Create SQS client
 sqs = boto3.client('sqs')
 
-queue_url = settings.get('AcccessKeys', 'queue_url')
+queue_url = settings.get('AccessKeys', 'queue_url')
 
 message_template = """
 Title: {m[MessageAttributes][Title][StringValue]},
